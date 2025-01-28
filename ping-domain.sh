@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # =================================================================
 # ping-domain.sh (ver. 1.0): Ping a domain, parse, write to CSV
 # Pings a domain, parses the result and writes the result to a file
@@ -19,7 +18,6 @@ main() {
         exit 1
     fi
 
-
     for item in "$@"; do
         if [[ -z "$item" ]]; then
         echo "Argument cannot be null!"
@@ -34,7 +32,6 @@ main() {
         exit 1
         fi
     done
-
 
     echo "Pinging ${SITE}..."
     packet_loss=$(ping -4 -c 4 "${TARGET}" | grep "%"| awk '{print $6}')
