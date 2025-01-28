@@ -11,10 +11,9 @@ main() {
     TARGET="${2}"
     DATE_TIME=$(date | awk '{print $1, $2, $3, $4}')
 
-    # if not 2 args, throw an error
+    # if not 2 args or if string is null
     if [[ "$#" -ne ARGS ]]; then
         echo "Error: Usage: ping-domain.sh arg1 arg2"
-
         exit 1
     fi
 
@@ -22,22 +21,19 @@ main() {
         if [[ -z "$item" ]]; then
         echo "Argument cannot be null!"
         exit 1
-        fi
-
+        fi       
         # Check for disallowed characters
         if [[ ! "$item" =~ ^[a-zA-Z0-9_.]+$ ]]; then
         echo "Error: Argument '$item' contains invalid characters. \
         Only alphanumeric and underscores allowed"
-
         exit 1
         fi
     done
-
+    
+    # Check if the packet loss is 0%
     echo "Pinging ${SITE}..."
     packet_loss=$(ping -4 -c 4 "${TARGET}" | grep "%"| awk '{print $6}')
     echo "Packet loss percentage is $packet_loss"
-
-    # Check if the packet loss is 0%
     if [[ "$packet_loss" == "0%"  ]]; then
         echo "Ping successful: 0% packet loss"
     else
