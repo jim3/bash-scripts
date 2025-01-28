@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # =================================================================
 # ping-domain.sh (ver. 1.0): Ping a domain, parse, write to CSV
 # Pings a domain, parses the result and writes the result to a file
@@ -12,14 +11,15 @@ main() {
     TARGET="${2}"
     DATE_TIME=$(date | awk '{print $1, $2, $3, $4}')
 
-    # if not 2 args or if string is null
+    # check if the number of arguments is correct (2)
     if [[ "$#" -ne ARGS ]]; then
         echo "Error: Usage: ping-domain.sh arg1 arg2"
         exit 1
     fi
+    # Check if given an empty string
     for item in "$@"; do
         if [[ -z "$item" ]]; then
-        echo "Argument cannot be null!"
+        echo "Error: Argument '$item' is empty"
         exit 1
         fi       
         # Check for disallowed characters
@@ -40,7 +40,7 @@ main() {
         echo "Ping failed: $packet_loss% packet loss"
     fi
 
-    # Create or append to the CSV file
+    # Write results to a CSV file
     csv_file="${SCRIPT_NAME%.*}.csv"
     echo "CSV file name is now: ${csv_file}"
     echo "${SCRIPT_NAME},${TARGET},${packet_loss},${DATE_TIME}" >> "$csv_file"
