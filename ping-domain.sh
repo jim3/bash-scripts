@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # =================================================================
 # ping-domain.sh (ver. 1.0): Ping a domain, parse, write to CSV
 # Pings a domain, parses the result and writes the result to a file
