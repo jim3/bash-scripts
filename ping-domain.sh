@@ -16,7 +16,6 @@ main() {
         echo "Error: Usage: ping-domain.sh arg1 arg2"
         exit 1
     fi
-
     for item in "$@"; do
         if [[ -z "$item" ]]; then
         echo "Argument cannot be null!"
